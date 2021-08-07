@@ -25,42 +25,44 @@
         padding-bottom: 1em;
     }
 
-        #topbar {
-            width:80%;
-            margin-left:auto;
-            margin-right:auto;
-            text-align: right;
+        #headerWrapper{
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
         }
-            #topbar button{
-                width: 10em;
-            }
 
-            #topbar button:first-child{
-                margin-right:2em;
-            }
+        header input{
+            width: 10em;
+            height:100%;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding:1em;
+        }
 
-            #headerAvatar{
-                height: 4em;
-            }
+        header input:first-child{
+            margin-right:2em;
+        }
+
+        #headerAvatar{
+            height: 4em;
+        }
 
         #banner {
             background-color: var(--content-primary);
-            width: 80%;
-            height: 10%;
-            margin-left:auto;
-            margin-right:auto;
-            margin-top:1em;
-            padding:0.5em;
+            width: 60%;
+            margin-right: 3em;
         }
-
-            #banner h1{
-                margin:10px;
+            
+            #banner h2{
+                margin: 3px;
             }
 
     #sticky-footer{
         position:fixed;
         bottom:0;
-        width:100vw;
+
+        width:100%;
         height: 5em;
         background-color: var(--content-secondary);
 
@@ -74,7 +76,7 @@
             font-weight: bold;
         }
 
-    /* Home page **************************************************/
+    /* Home page and Dashboard **************************************************/
     #homeWrapper{
         background-color: var(--content-primary);
         margin-top: 1em;
@@ -82,8 +84,19 @@
         height: 75vh;
     }
 
-    #homeWrapper h1{
-        text-align:center;
+        #homeWrapper h1{
+            text-align:center;
+        }
+
+        #homeWrapper #MainContent_btnUpload{
+            position: absolute;
+            left: 46%;
+            width: 8%;
+        }
+
+    /* Upload Image *************************************************************/
+    #uploadForm{
+        background-color:var(--content-secondary);
     }
 
     /* Sort by Category *******************************************/
@@ -129,19 +142,38 @@
         margin: 1em;
         padding: 1em;
         min-height: 17em;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1em;
     }
-        #avatarBig{
-            height: 15em;
-            float: left;
-            margin-right: 3em;
+        
+        #galleryLeft{
+            grid-column: 1;
         }
 
-        #bio{
-            margin-right: 2em;
-        }
+            #ImageBig{
+                width: 90%;
+                margin-right: 3em;
+            }
 
-            #bio p{
-                font-size: 1.5em;
+            #caption{
+                margin-right: 2em;
+            }
+
+                #caption p{
+                    font-size: 1.5em;
+                }
+
+        #galleryRight{
+            grid-column: 2;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            grid-gap: 1em;
+        }
+            .galleryImage{
+                width: 100%;
             }
 
     /* Post Page *****************************************************/
@@ -186,6 +218,90 @@
                 #description em{
                     font-weight: bold;
                 }
+
+    /* Login Page ******************************************************************/
+    #MainContent_loginForm{
+        background-color: var(--content-secondary);
+        padding: 1em;
+        width: 20%;
+        position: fixed;
+        left: 40%;
+        top: 30%;
+
+        text-align:center;
+    }
+
+        #MainContent_loginForm input{
+            margin: 1em;
+        }
+
+        #MainContent_loginForm p{
+            display: inline;
+            font-size: 1.5em;
+        }
+
+        #MainContent_submit{
+            font-size: 1.5em;
+        }
+
+    /* Registration Page *************************************************************/
+    #MainContent_registerForm{
+        background-color: var(--content-secondary);
+        padding: 1em;
+        padding-top: 5em;
+        width: 50%;
+        position: fixed;
+        left: 25%;
+        top: 25%;
+        display: flex;
+        flex-direction:column;
+    }
+
+        #registerWrapper {
+            align-self: center;
+            display: grid;
+            width: 50%;
+            grid-template-columns: repeat(2, auto);
+            grid-template-rows: repeat(6, auto);
+            margin-bottom: 3em;
+        }
+
+            #MainContent_registerForm p{
+                display:inline;
+                font-size: 1.5em;
+                grid-column: 1;
+                text-align: right;
+            }
+
+            #MainContent_registerForm input {
+                margin: 0.5em;
+                grid-column: 2;
+            }
+
+    #MainContent_register {
+        font-size: 1.5em;
+        width: 20%;
+        align-self: center;
+    }
+
+    /* Logout Confirmation Page ***********************************/
+    #logoutWrapper{
+        background-color:var(--content-secondary);
+        padding: 5em;
+        text-align: center;
+        width: 33%;
+        position: absolute;
+        left:33%;
+        top:33%;
+    }
+
+        #logoutWrapper input{
+            font-size:2em;
+        }
+
+        #logoutWrapper input:nth-child(3){
+            margin-right: 10%;
+        }
 }
 
 /* Responsive: Smaller than portrait tablets*/

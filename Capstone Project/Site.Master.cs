@@ -27,7 +27,7 @@ namespace Capstone_Project
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Register");
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -42,7 +42,9 @@ namespace Capstone_Project
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-
+            // store current location in case of cancellation, then redirect to logout confirmation page
+            Session["prevURL"] = HttpContext.Current.Request.Url.AbsolutePath;
+            Response.Redirect("logout");
         }
     }
 }
