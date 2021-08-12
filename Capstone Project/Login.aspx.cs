@@ -29,7 +29,7 @@ namespace Capstone_Project
             if(int.TryParse(status, out id))
             {
                 Session["userID"] = id;
-                Response.Redirect("default");
+                Response.Redirect("dashboard");
             }
             else
             {

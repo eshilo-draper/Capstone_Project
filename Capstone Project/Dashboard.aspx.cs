@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Capstone_Project.Models;
+using System.Data.SqlClient;
 
 namespace Capstone_Project
 {
@@ -11,12 +13,54 @@ namespace Capstone_Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("default");
+            }
         }
 
         protected void btnUpload_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Upload");
+        }
+
+        // COPIED FROM Gallery.aspx.cs, switched to using session instead of URL param (re-copy if changed in gallery)
+        public string[,] getImages()
+        {
+            string[,] galleryList;
+
+            // create a temp account object and use it to retrieve all images by the selected user (default sort by completionDate ascending)
+            Account temp = new Account();
+            SqlDataReader galleryReader = temp.getUploads(int.Parse(Session["userID"].ToString()), "ORDER BY CompletionDate ASC");
+
+            // convert galleryReader to a list of lists of length 20
+            string[,] tempList = new string[20, 5];
+
+            int row = 0;
+
+            while (galleryReader.Read())
+            {
+                tempList[row, 0] = galleryReader["imagePath"].ToString();
+                tempList[row, 1] = galleryReader["title"].ToString();
+                tempList[row, 2] = galleryReader["medium"].ToString();
+                tempList[row, 3] = galleryReader["completionDate"].ToString();
+                tempList[row, 4] = galleryReader["description"].ToString();
+
+                row++;
+            }
+
+            // use row count to generate list of minimum length
+            galleryList = new string[row, 5];
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    galleryList[i, j] = tempList[i, j];
+                }
+            }
+
+            return galleryList;
         }
     }
 }

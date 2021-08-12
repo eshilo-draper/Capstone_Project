@@ -11,7 +11,10 @@ namespace Capstone_Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("default");
+            }
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace Capstone_Project.Models
 
         public Account()
         {
-            
+
         }
 
         public Account(string username, string password)
@@ -66,7 +66,7 @@ namespace Capstone_Project.Models
                 cmd.ExecuteNonQuery();
                 status = "success";
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 status = err.Message;
             }
@@ -144,7 +144,7 @@ namespace Capstone_Project.Models
             return status;
         }
 
-        public string GetUsernameByID(int id)
+        public string getUsernameByID(int id)
         {
             string status = "";
 
@@ -165,9 +165,9 @@ namespace Capstone_Project.Models
 
                 while (results.Read()) // should only go through this loop once
                 {
-                    
+
                     status = results["username"].ToString();
-                    
+
                 }
             }
             catch (Exception err)
@@ -176,6 +176,54 @@ namespace Capstone_Project.Models
             }
 
             return status;
+        }
+
+        public string uploadImageData(int userID, string imagePath, string title, string medium, DateTime completionDate, string description)
+        {
+            string status = "";
+
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "INSERT INTO Capstone_Uploads (userID, imagePath, title, medium, completionDate, description) VALUES (@userID, @imagePath, @title, @medium, @completionDate, @description);";
+            command.Connection = connection;
+
+            command.Parameters.AddWithValue("@userID", userID);
+            command.Parameters.AddWithValue("@imagePath", imagePath);
+            command.Parameters.AddWithValue("@title", title);
+            command.Parameters.AddWithValue("@medium", medium);
+            command.Parameters.AddWithValue("@completionDate", completionDate);
+            command.Parameters.AddWithValue("@description", description);
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception err)
+            {
+                status = err.Message;
+            }
+
+
+            return status;
+        }
+
+        public SqlDataReader getUploads(int userID, string condition)
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "SELECT * FROM Capstone_Uploads WHERE userID = @userID " + condition + ";"; // condition is always auto-generated, so it is safe to add
+
+            command.Parameters.AddWithValue("@userID", userID);
+            command.Parameters.AddWithValue("@condition", condition);
+
+            command.Connection = connection;
+            connection.Open();
+            return command.ExecuteReader();
         }
     }
 }

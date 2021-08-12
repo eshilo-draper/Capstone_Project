@@ -21,7 +21,7 @@ namespace Capstone_Project
 
                 // retrieve username based on user ID and display on label
                 Account temp = new Account();
-                loggedIn_un.Text = "Logged in as " + temp.GetUsernameByID(int.Parse(Session["userID"].ToString()));
+                loggedIn_un.Text = "Logged in as " + temp.getUsernameByID(int.Parse(Session["userID"].ToString()));
             }
         }
 
