@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.13\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.13\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -27,6 +28,7 @@
     </NuGetPackageImportStamp>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
+    <TypeScriptToolsVersion>4.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -129,6 +131,28 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Category.aspx" />
+    <Content Include="Scripts\cropperjs\.babelrc" />
+    <Content Include="Scripts\cropperjs\.editorconfig" />
+    <Content Include="Scripts\cropperjs\.eslintrc" />
+    <Content Include="Scripts\cropperjs\.gitattributes" />
+    <Content Include="Scripts\cropperjs\.github\CODE_OF_CONDUCT.md" />
+    <Content Include="Scripts\cropperjs\.github\CONTRIBUTING.md" />
+    <Content Include="Scripts\cropperjs\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <Content Include="Scripts\cropperjs\.github\ISSUE_TEMPLATE\feature_request.md" />
+    <Content Include="Scripts\cropperjs\.github\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="Scripts\cropperjs\.github\workflows\ci.yml" />
+    <Content Include="Scripts\cropperjs\.gitignore" />
+    <Content Include="Scripts\cropperjs\.husky\.gitignore" />
+    <Content Include="Scripts\cropperjs\.husky\commit-msg" />
+    <Content Include="Scripts\cropperjs\.husky\pre-commit" />
+    <Content Include="Scripts\cropperjs\.stylelintrc" />
+    <Content Include="Scripts\cropperjs\CHANGELOG.md" />
+    <Content Include="Scripts\cropperjs\LICENSE" />
+    <Content Include="Scripts\cropperjs\package-lock.json" />
+    <Content Include="Scripts\cropperjs\package.json" />
+    <Content Include="Scripts\cropperjs\README.md" />
+    <Content Include="Scripts\cropperjs\src\css\cropper.scss" />
+    <Content Include="Scripts\cropperjs\src\index.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Image.aspx" />
     <Content Include="Login.aspx" />
@@ -136,6 +160,130 @@
     <Content Include="Register.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\cropperjs\dist\cropper.common.js" />
+    <Content Include="Scripts\cropperjs\dist\cropper.css" />
+    <Content Include="Scripts\cropperjs\dist\cropper.esm.js" />
+    <Content Include="Scripts\cropperjs\dist\cropper.js" />
+    <Content Include="Scripts\cropperjs\dist\cropper.min.css" />
+    <Content Include="Scripts\cropperjs\dist\cropper.min.js" />
+    <Content Include="Scripts\cropperjs\docs\css\cropper.css" />
+    <Content Include="Scripts\cropperjs\docs\css\main.css" />
+    <Content Include="Scripts\cropperjs\docs\examples\a-range-of-aspect-ratio.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\crop-a-round-image.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\crop-cross-origin-image.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\crop-on-canvas.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\cropper-in-modal.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\customize-preview.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\fixed-crop-box.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\full-crop-box.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\mask-an-image.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\minimum-and-maximum-cropped-dimensions.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\multiple-croppers.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\one-to-one-crop-box.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\responsive-container.html" />
+    <Content Include="Scripts\cropperjs\docs\examples\upload-cropped-image-to-server.html" />
+    <Content Include="Scripts\cropperjs\docs\images\data.jpg" />
+    <Content Include="Scripts\cropperjs\docs\images\layers.jpg" />
+    <Content Include="Scripts\cropperjs\docs\images\picture-2.jpg" />
+    <Content Include="Scripts\cropperjs\docs\images\picture-3.jpg" />
+    <Content Include="Scripts\cropperjs\docs\images\picture.jpg" />
+    <Content Include="Scripts\cropperjs\docs\index.html" />
+    <Content Include="Scripts\cropperjs\docs\js\cropper.js" />
+    <Content Include="Scripts\cropperjs\docs\js\main.js" />
+    <Content Include="Scripts\cropperjs\karma.conf.js" />
+    <Content Include="Scripts\cropperjs\postcss.config.js" />
+    <Content Include="Scripts\cropperjs\rollup.config.js" />
+    <Content Include="Scripts\cropperjs\src\css\cropper.css" />
+    <Content Include="Scripts\cropperjs\src\images\bg.png" />
+    <Content Include="Scripts\cropperjs\src\index.css" />
+    <Content Include="Scripts\cropperjs\src\index.js" />
+    <Content Include="Scripts\cropperjs\src\js\change.js" />
+    <Content Include="Scripts\cropperjs\src\js\constants.js" />
+    <Content Include="Scripts\cropperjs\src\js\cropper.js" />
+    <Content Include="Scripts\cropperjs\src\js\defaults.js" />
+    <Content Include="Scripts\cropperjs\src\js\events.js" />
+    <Content Include="Scripts\cropperjs\src\js\handlers.js" />
+    <Content Include="Scripts\cropperjs\src\js\methods.js" />
+    <Content Include="Scripts\cropperjs\src\js\preview.js" />
+    <Content Include="Scripts\cropperjs\src\js\render.js" />
+    <Content Include="Scripts\cropperjs\src\js\template.js" />
+    <Content Include="Scripts\cropperjs\src\js\utilities.js" />
+    <Content Include="Scripts\cropperjs\test\helpers.js" />
+    <Content Include="Scripts\cropperjs\test\specs\Cropper.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\crop.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\cropend.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\cropmove.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\cropstart.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\ready.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\events\zoom.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\clear.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\crop.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\destroy.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\disable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\enable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getCanvasData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getContainerData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getCropBoxData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getCroppedCanvas.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\getImageData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\move.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\moveTo.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\noConflict.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\replace.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\reset.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\rotate.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\rotateTo.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\scale.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\scaleX.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\scaleY.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setAspectRatio.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setCanvasData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setCropBoxData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setData.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setDefaults.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\setDragMode.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\zoom.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\methods\zoomTo.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\aspectRatio.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\autoCrop.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\autoCropArea.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\background.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\center.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\checkCrossOrigin.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\checkOrientation.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\crop.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\cropBoxMovable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\cropBoxResizable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\cropend.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\cropmove.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\cropstart.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\data.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\dragMode.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\guides.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\highlight.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\initialAspectRatio.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minCanvasHeight.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minCanvasWidth.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minContainerHeight.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minContainerWidth.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minCropBoxHeight.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\minCropBoxWidth.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\modal.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\movable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\preview.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\ready.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\responsive.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\restore.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\rotatable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\scalable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\toggleDragModeOnDblclick.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\viewMode.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\wheelZoomRatio.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\zoom.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\zoomable.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\zoomOnTouch.spec.js" />
+    <Content Include="Scripts\cropperjs\test\specs\options\zoomOnWheel.spec.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -300,11 +448,18 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\cropperjs\types\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

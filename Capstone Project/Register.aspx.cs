@@ -21,7 +21,7 @@ namespace Capstone_Project
             // ensure all fields have been filled out
             if(txt_username.Text == "" || txt_password.Text == "" || txt_confirmPassword.Text == "" || txt_displayName.Text == "" || txt_email.Text == "" || dtp_dob.Text == "")
             {
-                lbl_Error.Text = "ERROR: all fields required <br />";
+                lblError.Text = "ERROR: all fields required <br />";
             }
             else
             {
@@ -71,7 +71,7 @@ namespace Capstone_Project
                     errors = temp.register();
                     if (errors != "success")
                     {
-                        lbl_Error.Text = errors;
+                        lblError.Text = errors;
                     }
                     else
                     {
@@ -81,7 +81,7 @@ namespace Capstone_Project
                 }
                 else
                 {
-                    lbl_Error.Text = errors;
+                    lblError.Text = errors;
                 }
             }
         }

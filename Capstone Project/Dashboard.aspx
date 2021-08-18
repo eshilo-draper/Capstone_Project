@@ -2,23 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div id="homeWrapper">
         <asp:ImageButton src="Site_Images/Upload.png" ID="btnUpload" runat="server" OnClick="btnUpload_Click"/>
-        <div id="dashboardImageGrid">
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-        </div>
+        <div id="dashboardImageGrid"></div>
     </div>
 
     <%
@@ -26,12 +10,20 @@
     %>
 
     <script type="text/javascript">
+         <%-- get list of images immediately --%>
         var galleryList = <%= serializer.Serialize(getImages()) %>;
-        var images = document.getElementsByClassName("galleryImage");
 
-        for (var i = 0; i < (galleryList.length / 5); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
-            images[i].setAttribute("src", "Uploads/" + galleryList[i * 5]);
-            images[i].setAttribute("onclick", "");
-        }
+        <%-- on page load --%>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            <%-- load gallery images --%>
+            for (var i = 0; i < (galleryList.length / 5); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
+                var img = document.createElement("img");
+                img.classList.add("galleryImage");
+                img.setAttribute("src", "Uploads/" + galleryList[i * 5]);
+                img.setAttribute("onclick", "");
+                document.getElementById("dashboardImageGrid").appendChild(img);
+            }
+        });
     </script>
 </asp:Content>

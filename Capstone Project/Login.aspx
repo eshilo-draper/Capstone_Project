@@ -4,9 +4,9 @@
         <h2>Login</h2>
         <p>Username:</p> <asp:TextBox ID="username" runat="server" /> <br />
         <p>Password:</p> <asp:TextBox ID="password" runat="server" TextMode="Password"/> <br />
-        <asp:Button Text="submit" ID="submit" OnClick="submit_Click" runat="server" />
+        <asp:Button Text="submit" class="button" ID="submit" OnClick="submit_Click" runat="server" />
         <div id="error">
-            <asp:Label ID="errorLabel" runat="server"/>
+            <asp:Label ID="lblError" runat="server"/>
         </div>
     </asp:Panel>
 </asp:Content>

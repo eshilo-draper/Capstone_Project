@@ -10,7 +10,7 @@
             <p>Date of Birth: </p> <asp:TextBox ID="dtp_dob" TextMode="Date" runat="server" />
         </div>
 
-        <asp:Button ID="register" Text="Register" runat="server" OnClick="register_Click" />
-        <asp:Label ID="lbl_Error" runat="server"/>
+        <asp:Button ID="register" class="button" Text="Register" runat="server" OnClick="register_Click" />
+        <asp:Label ID="lblError" runat="server"/>
     </asp:Panel>
 </asp:Content>

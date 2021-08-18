@@ -8,28 +8,8 @@
                 <p id="imageInfo"></p>
             </div>
         </div>
-        <asp:Panel ID="galleryRight" runat="server">
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-            <img class="galleryImage" />
-        </asp:Panel>
+        <div id="galleryRight">
+        </div>
     </div>
 
     <%
@@ -37,8 +17,24 @@
     %>
 
     <script type="text/javascript">
+        <%-- get list of images immediately --%>
         var galleryList = <%= serializer.Serialize(getImages()) %>;
-        var images = document.getElementsByClassName("galleryImage");
+
+        <%-- on page load --%>
+        document.addEventListener("DOMContentLoaded", function ()
+        {
+            <%-- hide footer --%>
+            document.getElementById("sticky-footer").classList.add("hidden");
+
+            <%-- load gallery images --%>
+            for (var i = 0; i < (galleryList.length / 5); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
+                var img = document.createElement("img");
+                img.classList.add("galleryImage");
+                img.setAttribute("src", "Uploads/" + galleryList[i * 5]);
+                img.setAttribute("onclick", "maximizeImage(" + i + ")");
+                document.getElementById("galleryRight").appendChild(img);
+            }
+        });
 
         <%-- function run when an image is clicked to call up its info --%>
         function maximizeImage(imageNumber) {
@@ -52,11 +48,6 @@
             description += "<br /><em>Description:</em> " + galleryList[imageNumber * 5 + 4];
 
             document.getElementById("imageInfo").innerHTML = description;
-        }
-
-        for (var i = 0; i < (galleryList.length / 5); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
-            images[i].setAttribute("src", "Uploads/" + galleryList[i * 5]);
-            images[i].setAttribute("onclick", "maximizeImage(" + i + ")");
         }
     </script>
 

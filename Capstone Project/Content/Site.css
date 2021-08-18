@@ -1,20 +1,45 @@
 ﻿/* color scheme variables */
 :root {
-    --content-primary: #808080;
-    --content-secondary: #AAA;
+    --content-primary: #333;
+    --content-secondary: #1A1A1A;
+    --text-color: #CCC;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     body {
+        background-color: var(--content-primary);
+        height: 100%;
     }
 
     .body-content {
-        width: 85vw;
+        width: 100vw;
+        height: 100%;
+        padding:0;
     }
 
     .hidden {
         display: none;
+    }
+
+    .button {
+        color: var(--text-color);
+        width: 10em;
+        height: 3em;
+        margin-top: auto;
+        margin-bottom: auto;
+        background-color: #666;
+        border: 0;
+        border-radius: 0.5em;
+        padding: 0.5em 1.5em;
+    }
+
+    .button:hover{
+        background-color: #444;
+    }
+
+    form{
+        height: 100%;
     }
 
     /* Site Master Header ******************************************/
@@ -22,6 +47,18 @@
         background-color: var(--content-secondary);
         padding-top: 1em;
         padding-bottom: 1em;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100vw;
+        height: 6em;
+        box-sizing: border-box;
+        color: var(--text-color);
+    }
+
+    #headerSpacer{
+        height: 6em;
     }
 
     #headerWrapper {
@@ -32,11 +69,7 @@
     }
 
     header input {
-        width: 10em;
-        height: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
-        padding: 1em;
+        
     }
 
         header input:first-child {
@@ -66,6 +99,7 @@
         padding-top: 1em;
         display: flex;
         justify-content: center;
+        color: var(--content-primary);
     }
 
         #sticky-footer p {
@@ -80,9 +114,10 @@
     /* Home page and Dashboard **************************************************/
     #homeWrapper {
         background-color: var(--content-primary);
+        color: var(--text-color);
         margin-top: 1em;
         padding: 1em;
-        height: 75vh;
+        height: 100%;
     }
 
         #homeWrapper h1 {
@@ -96,31 +131,36 @@
         }
 
     #dashboardImageGrid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        margin-top: 1em;
+        display:flex;
+        flex-wrap: wrap;
+        margin-top: 3em;
+        justify-content: center;
     }
 
         #dashboardImageGrid .galleryImage {
-            width: 90%;
+            height: 25vh;
+            margin-right: 2em;
+            box-shadow: 5px 5px 5px black;
         }
 
     /* Upload Image *************************************************************/
     #MainContent_uploadForm {
-        background-color: var(--content-secondary);
+        background-color: var(--content-primary);
         margin-top: 1em;
         margin-left: auto;
         margin-right: auto;
         font-size: 1.5em;
+
         display: flex;
         justify-content: space-evenly;
+
         padding-top: 3em;
         padding-bottom: 3em;
         height: 80vh;
     }
 
         #MainContent_uploadForm #uploadLeft {
+            
         }
 
             #MainContent_uploadForm #uploadLeft #cropperJS {
@@ -130,83 +170,53 @@
 
         #MainContent_uploadForm #uploadRight {
             display: grid;
-            grid-template-columns: repeat(2, auto);
+            width: 50%;
+            grid-template-columns: 25% 75%;
             grid-template-rows: repeat(5, auto);
             grid-column-gap: 1em;
         }
 
             #MainContent_uploadForm #uploadRight p {
-                grid-column: 1;
+                grid-column: 1/ span 1;
                 display: inline-block;
                 text-align: right;
+                color: var(--text-color);
             }
 
             #MainContent_uploadForm #uploadRight input {
+                grid-column: 2/ span 1;
                 height: 1.5em;
             }
 
             #MainContent_uploadForm #uploadRight #MainContent_btnUpload {
                 grid-column: 1/ span 2;
-                height: 2em;
-                margin-left: 1em;
-                margin-right: 1em;
+                height: 3em;
             }
-
-    /* Sort by Category *******************************************/
-    #categoryWrapper {
-        height: 75vh;
-        width: 100%;
-        background-color: var(--content-primary);
-        padding: 1em;
-        margin-top: 1em;
-    }
-
-        #categoryWrapper h1 {
-            text-align: center;
-        }
-
-    /* Search Results *********************************************/
-    #searchWrapper {
-        height: 75vh;
-        width: 100%;
-        background-color: var(--content-primary);
-        padding: 1em;
-        margin-top: 1em;
-    }
-
-        #searchWrapper h1, #searchWrapper h3 {
-            text-align: center;
-        }
-
-    #resultsWrapper {
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-        #resultsWrapper #Categories, #resultsWrapper #Users, #resultsWrapper #Images {
-            background-color: var(--content-secondary);
-            width: 30%;
-            height: 60vh;
-        }
 
     /* User Gallery ****************************************************/
     #userWrapper {
         background-color: var(--content-primary);
-        margin: 1em;
-        padding: 1em;
-        min-height: 17em;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1em;
+        height: 100%;
     }
 
     #galleryLeft {
+        position:fixed;
         grid-column: 1;
+        width: 50%;
+        height: 100%;
+        background-color: var(--content-secondary);
+        padding: 1em;
     }
 
     #imageBig {
-        width: 75%;
-        margin-right: 3em;
+        width: 65%;
+        margin-top: 1em;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     #caption {
@@ -217,17 +227,18 @@
             font-size: 1.5em;
         }
 
-    #MainContent_galleryRight {
+    #galleryRight {
         grid-column: 2;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(6, 1fr);
-        grid-gap: 1em;
+        display: flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        padding: 1em;
     }
 
-        #MainContent_galleryRight img.galleryImage {
-            width: 100%;
+        #galleryRight img.galleryImage {
+            height: 25vh;
             margin-right: 2em;
+            box-shadow: 5px 5px 5px black;
         }
 
     /* Post Page *****************************************************/
@@ -282,6 +293,10 @@
         top: 30%;
         text-align: center;
     }
+        
+    #MainContent_loginForm h2{
+        color: var(--text-color);
+    }
 
         #MainContent_loginForm input {
             margin: 1em;
@@ -290,6 +305,7 @@
         #MainContent_loginForm p {
             display: inline;
             font-size: 1.5em;
+            color: var(--text-color);
         }
 
     #MainContent_submit {
@@ -309,8 +325,8 @@
     /* Registration Page *************************************************************/
     #MainContent_registerForm {
         background-color: var(--content-secondary);
-        padding: 1em;
-        padding-top: 5em;
+        padding: 2em;
+        padding-top: 3em;
         width: 50%;
         position: fixed;
         left: 25%;
@@ -325,7 +341,7 @@
         width: 50%;
         grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(6, auto);
-        margin-bottom: 3em;
+        margin-bottom: 1.5em;
     }
 
     #MainContent_registerForm p {
@@ -333,6 +349,7 @@
         font-size: 1.5em;
         grid-column: 1;
         text-align: right;
+        color: var(--text-color);
     }
 
     #MainContent_registerForm input {
@@ -341,29 +358,34 @@
     }
 
     #MainContent_register {
-        font-size: 1.5em;
-        width: 20%;
         align-self: center;
     }
 
-    /* Logout Confirmation Page ***********************************/
-    #logoutWrapper {
-        background-color: var(--content-secondary);
-        padding: 5em;
+    #MainContent_lblError{
+        color:var(--text-color);
         text-align: center;
-        width: 33%;
-        position: absolute;
-        left: 33%;
-        top: 33%;
+        font-size: 1.3em;
     }
 
-        #logoutWrapper input {
-            font-size: 2em;
-        }
+/* Logout Confirmation Page ***********************************/
+#logoutWrapper {
+    background-color: var(--content-secondary);
+    color: var(--text-color);
+    padding: 5em;
+    text-align: center;
+    width: 33%;
+    position: absolute;
+    left: 33%;
+    top: 33%;
+}
 
-            #logoutWrapper input:nth-child(3) {
-                margin-right: 10%;
-            }
+    #logoutWrapper input {
+        font-size: 1.3em;
+    }
+
+        #logoutWrapper input:nth-child(3) {
+            margin-right: 10%;
+        }
 }
 
 /* Responsive: Smaller than portrait tablets*/
