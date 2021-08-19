@@ -152,7 +152,7 @@
         font-size: 1.5em;
 
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
 
         padding-top: 3em;
         padding-bottom: 3em;
@@ -163,10 +163,26 @@
             
         }
 
-            #MainContent_uploadForm #uploadLeft #cropperJS {
-                display: block;
-                max-height: 100%; /* IMPORTANT */
+            #uploadLabel {
+                color: var(--text-color);
+                margin-left: 1em;
+                height: 60vh;
+                width: 40vw;
             }
+                
+                #tempLabel{
+                    text-align: center;
+                    text-decoration: underline;
+                }
+
+                #tempLabel:hover, #imagePreview:hover{
+                    cursor: pointer;
+                }
+
+                #imagePreview {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
 
         #MainContent_uploadForm #uploadRight {
             display: grid;
@@ -386,6 +402,37 @@
         #logoutWrapper input:nth-child(3) {
             margin-right: 10%;
         }
+
+/* Edit Account Details ***************************/
+#accountEditWrapper{
+    display: grid;
+    grid-template-columns: 10vw 30vw;
+    grid-template-rows: repeat(6, 1fr);
+    margin: 0 30vw;
+    grid-column-gap: 2em;
+}
+
+    #accountEditWrapper p{
+        color:var(--text-color);
+        text-align: right;
+        font-size: 1.5em;
+        font-style: oblique;
+    }
+
+    #accountEditWrapper input{
+        height: 3em;
+    }
+
+    #MainContent_avatarPreview{
+        width: 6em;
+    }
+
+    #MainContent_btnChangePassword{
+        padding: 1em;
+        font-size: 1.5em;
+        margin: 0;
+    }
+
 }
 
 /* Responsive: Smaller than portrait tablets*/

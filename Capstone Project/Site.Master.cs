@@ -10,7 +10,6 @@ namespace Capstone_Project
 {
     public partial class SiteMaster : MasterPage
     {
-        private String connectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(Session["userID"] != null)
@@ -37,7 +36,7 @@ namespace Capstone_Project
 
         protected void btnAccountSettings_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("editaccount");
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)

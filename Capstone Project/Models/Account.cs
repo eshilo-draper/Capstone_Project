@@ -9,6 +9,7 @@ namespace Capstone_Project.Models
 {
     public class Account
     {
+        private int userID;
         private string username;
         private string password;
         private string displayName;
@@ -37,6 +38,16 @@ namespace Capstone_Project.Models
             this.dob = dob;
         }
 
+        public Account(int userID, string username, string displayName, string email, string icon, string bio)
+        {
+            this.userID = userID;
+            this.username = username;
+            this.displayName = displayName;
+            this.email = email;
+            this.icon = icon;
+            this.bio = bio;
+        }
+
         private string serverAddress()
         {
             return @"Server=sql.neit.edu\studentsqlserver,4500;Database=SE245_EShilo-Draper;User Id=SE245_EShilo-Draper;Password=008011411;";
@@ -51,7 +62,7 @@ namespace Capstone_Project.Models
             connection.ConnectionString = @serverAddress();
 
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO Capstone_Login_TEMP (username, password, displayName, email, dob) VALUES (@username, @password, @displayName, @email, @dob);";
+            cmd.CommandText = "INSERT INTO Capstone_Login_TEMP (username, password, displayName, email, dob, icon) VALUES (@username, @password, @displayName, @email, @dob, @icon);";
             cmd.Connection = connection;
 
             cmd.Parameters.AddWithValue("@username", username);
@@ -59,6 +70,7 @@ namespace Capstone_Project.Models
             cmd.Parameters.AddWithValue("@displayName", displayName);
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@dob", dob);
+            cmd.Parameters.AddWithValue("@icon", "Default.png");
 
             try
             {
@@ -125,6 +137,38 @@ namespace Capstone_Project.Models
             command.Connection = connection;
 
             command.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader results = command.ExecuteReader();
+
+                if (results.HasRows)
+                {
+                    status = "ERROR: username taken";
+                }
+            }
+            catch (Exception err)
+            {
+                status = err.Message;
+            }
+
+            return status;
+        }
+
+        public string checkUsername(int userID) // checks if a username already exists in database, with the exception of the userID provided
+        {
+            string status = "";
+
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "SELECT username FROM Capstone_Login_TEMP WHERE username = @username AND userID != @userID;";
+            command.Connection = connection;
+
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@userID", userID);
 
             try
             {
@@ -224,6 +268,52 @@ namespace Capstone_Project.Models
             command.Connection = connection;
             connection.Open();
             return command.ExecuteReader();
+        }
+
+        public SqlDataReader getAccountInfo(int userID)
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = "SELECT username, displayName, email, bio, icon FROM Capstone_Login_TEMP WHERE userID = @userID;";
+            command.Parameters.AddWithValue("@userID", userID);
+
+            connection.Open();
+            SqlDataReader result = command.ExecuteReader();
+            return result;
+        }
+
+        public string updateAccountInfo()
+        {
+            string status = "";
+            
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = "UPDATE Capstone_Login_Temp SET username = @username, displayName = @displayName, email = @email, bio = @bio, icon = @icon WHERE userID = @userID;";
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@displayName", displayName);
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@bio", bio);
+            command.Parameters.AddWithValue("@icon", icon);
+            command.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                status = "success";
+            }
+            catch(Exception err)
+            {
+                status = err.Message;
+            }
+
+            return status;
         }
     }
 }
