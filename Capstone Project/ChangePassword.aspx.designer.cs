@@ -11,7 +11,7 @@ namespace Capstone_Project
 {
 
 
-    public partial class EditAccount
+    public partial class ChangePassword
     {
 
         /// <summary>
@@ -24,76 +24,40 @@ namespace Capstone_Project
         protected global::System.Web.UI.WebControls.Panel accountForm;
 
         /// <summary>
-        /// txt_username control.
+        /// txtOldPW control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_username;
+        protected global::System.Web.UI.WebControls.TextBox txtOldPW;
 
         /// <summary>
-        /// btnChangePassword control.
+        /// txtNewPW control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnChangePassword;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPW;
 
         /// <summary>
-        /// txt_displayName control.
+        /// txtConfirmNewPW control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_displayName;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmNewPW;
 
         /// <summary>
-        /// txt_email control.
+        /// btnChangePW control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_email;
-
-        /// <summary>
-        /// btnUploadAvatar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload btnUploadAvatar;
-
-        /// <summary>
-        /// avatarPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image avatarPreview;
-
-        /// <summary>
-        /// txt_bio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_bio;
-
-        /// <summary>
-        /// btnSubmitEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmitEdit;
+        protected global::System.Web.UI.WebControls.Button btnChangePW;
 
         /// <summary>
         /// lblError control.

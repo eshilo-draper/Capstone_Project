@@ -13,15 +13,20 @@
          <%-- get list of images immediately --%>
         var galleryList = <%= serializer.Serialize(getImages()) %>;
 
+        <%-- function to run when redirecting to edit post --%>
+        function editImage(imageIndex) {
+            window.location.href = "upload.aspx?editimage=" + imageIndex;
+        }
+
         <%-- on page load --%>
         document.addEventListener("DOMContentLoaded", function () {
 
             <%-- load gallery images --%>
-            for (var i = 0; i < (galleryList.length / 5); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
+            for (var i = 0; i < (galleryList.length / 6); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
                 var img = document.createElement("img");
                 img.classList.add("galleryImage");
-                img.setAttribute("src", "Uploads/" + galleryList[i * 5]);
-                img.setAttribute("onclick", "");
+                img.setAttribute("src", "Uploads/" + galleryList[i * 6]);
+                img.setAttribute("onclick", "editImage(" + galleryList[i * 6 + 5] + ")");
                 document.getElementById("dashboardImageGrid").appendChild(img);
             }
         });

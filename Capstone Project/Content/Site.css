@@ -3,6 +3,7 @@
     --content-primary: #333;
     --content-secondary: #1A1A1A;
     --text-color: #CCC;
+    --text-secondary: #888;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -20,6 +21,10 @@
 
     .hidden {
         display: none;
+    }
+
+    .clickable:hover {
+        cursor: pointer;
     }
 
     .button {
@@ -68,27 +73,35 @@
         justify-content: center;
     }
 
-    header input {
-        
+    #avatar {
+        height: 4em;
     }
 
-        header input:first-child {
-            margin-right: 2em;
+    #userDropdown{
+        background-color: var(--content-secondary);
+        position: absolute;
+        list-style-type: none;
+
+        display: none;
+    }
+
+        #userDropdown input{
+            margin: 1em;
         }
 
-    #headerAvatar {
-        height: 4em;
+    #userDropdown.dropdownVisible{
+        display: flex;
+        flex-direction: column;
     }
 
     #banner {
         background-color: var(--content-primary);
         width: 60%;
         margin-right: 3em;
+        padding: 0.3em;
+        padding-left: 2em;
+        font-size: 2em;
     }
-
-        #banner h2 {
-            margin: 3px;
-        }
 
     #sticky-footer {
         position: fixed;
@@ -119,6 +132,52 @@
         padding: 1em;
         height: 100%;
     }
+
+        #homeTop{
+            width: 75vw;
+            margin-left: 12.5vw;
+            margin-top: 5vh;
+            display: flex;
+        }
+            #homeTop .homeText{
+                margin-right: 10%;
+            }
+
+        #homeBottom {
+            width: 75vw;
+            margin-left: 12.5vw;
+            display: flex;
+        }
+
+            #homeBottom .homeText {
+                margin-left: 10%;
+            }
+
+        .homeText{
+            width: 45vw;
+            height: 30vh;
+        }
+
+            .homeText h2{
+                font-size: 2.2em;
+                
+            }
+
+            .homeText hr{
+                width: 75%;
+                background-color: #666;
+                border: 2px solid #666;
+                margin-left: 0px;
+            }
+
+            .homeText p{
+                font-size: 1.7em;
+            }
+
+        .homeImage{
+            width: 33vw;
+            height: 25vh;
+        }
 
         #homeWrapper h1 {
             text-align: center;
@@ -160,7 +219,7 @@
     }
 
         #MainContent_uploadForm #uploadLeft {
-            
+
         }
 
             #uploadLabel {
@@ -170,7 +229,7 @@
                 width: 40vw;
             }
                 
-                #tempLabel{
+                #MainContent_tempLabel{
                     text-align: center;
                     text-decoration: underline;
                 }
@@ -179,7 +238,7 @@
                     cursor: pointer;
                 }
 
-                #imagePreview {
+                #MainContent_imagePreview {
                     max-height: 100%;
                     max-width: 100%;
                 }
@@ -227,21 +286,33 @@
         padding: 1em;
     }
 
-    #imageBig {
-        width: 65%;
-        margin-top: 1em;
-        display:block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #caption {
-        margin-right: 2em;
-    }
-
-        #caption p {
-            font-size: 1.5em;
+        #MainContent_imageBig {
+            width: 65%;
+            margin-top: 1em;
+            display:block;
+            margin-left: 10em;
         }
+
+        #caption {
+            margin-right: 2em;
+            margin-left: 10em;
+            margin-top: 1em;
+        }
+            
+            #caption #MainContent_lblImageTitle{
+                display: block;
+                font-size: 2em;
+                color: var(--text-color);
+            }
+
+            #caption em{
+                color: var(--text-color);
+            }
+
+            #caption #MainContent_lblImageInfo{
+                font-size: 1.5em;
+                color: var(--text-secondary);
+            }
 
     #galleryRight {
         grid-column: 2;
@@ -254,6 +325,7 @@
         #galleryRight img.galleryImage {
             height: 25vh;
             margin-right: 2em;
+            margin-bottom: 2em;
             box-shadow: 5px 5px 5px black;
         }
 
@@ -299,79 +371,54 @@
             font-weight: bold;
         }
 
-    /* Login Page ******************************************************************/
-    #MainContent_loginForm {
-        background-color: var(--content-secondary);
-        padding: 1em;
-        width: 20%;
-        position: fixed;
-        left: 40%;
-        top: 30%;
-        text-align: center;
-    }
-        
-    #MainContent_loginForm h2{
-        color: var(--text-color);
-    }
-
-        #MainContent_loginForm input {
-            margin: 1em;
-        }
-
-        #MainContent_loginForm p {
-            display: inline;
-            font-size: 1.5em;
-            color: var(--text-color);
-        }
-
-    #MainContent_submit {
-        font-size: 1.5em;
-    }
-
-    #MainContent_loginForm a {
-        color: navy;
-        text-decoration: underline;
-    }
-
-        #MainContent_loginForm a:hover {
-            color: blue;
-            font-style: italic;
-        }
-
-    /* Registration Page *************************************************************/
-    #MainContent_registerForm {
+    /* Login Page, Registration, Edit Account *************************************************************/
+    #MainContent_accountForm {
         background-color: var(--content-secondary);
         padding: 2em;
         padding-top: 3em;
         width: 50%;
-        position: fixed;
+        position: absolute;
         left: 25%;
-        top: 25%;
+        top: 15%;
         display: flex;
         flex-direction: column;
     }
 
-    #registerWrapper {
-        align-self: center;
-        display: grid;
-        width: 50%;
-        grid-template-columns: repeat(2, auto);
-        grid-template-rows: repeat(6, auto);
-        margin-bottom: 1.5em;
-    }
+        #accountWrapper {
+            align-self: center;
+            display: grid;
+            width: 50%;
+            grid-template-columns: repeat(2, auto);
+            grid-template-rows: repeat(6, auto);
+            grid-row-gap: 1.5em;
+            grid-column-gap: 1em;
+            margin-bottom: 1.5em;
+        }
 
-    #MainContent_registerForm p {
-        display: inline;
-        font-size: 1.5em;
-        grid-column: 1;
-        text-align: right;
-        color: var(--text-color);
-    }
+        #MainContent_accountForm h2{
+            color: var(--text-secondary);
+            text-align: center;
+            grid-column: 1/ span 2;
+            padding-bottom: 1em;
+        }
 
-    #MainContent_registerForm input {
-        margin: 0.5em;
-        grid-column: 2;
-    }
+        #MainContent_accountForm p {
+            display: inline;
+            font-size: 1.5em;
+            grid-column: 1;
+            text-align: right;
+            color: var(--text-color);
+        }
+
+        #MainContent_accountForm input {
+            margin: 0.5em;
+            grid-column: 2;
+        }
+
+        #MainContent_accountForm textarea {
+            margin: 0.5em;
+            grid-column: 2;
+        }
 
     #MainContent_register {
         align-self: center;
@@ -381,6 +428,11 @@
         color:var(--text-color);
         text-align: center;
         font-size: 1.3em;
+    }
+
+    #MainContent_avatarPreview{
+        height: 6em;
+        margin-left: 1em;
     }
 
 /* Logout Confirmation Page ***********************************/
@@ -402,38 +454,6 @@
         #logoutWrapper input:nth-child(3) {
             margin-right: 10%;
         }
-
-/* Edit Account Details ***************************/
-#accountEditWrapper{
-    display: grid;
-    grid-template-columns: 10vw 30vw;
-    grid-template-rows: repeat(6, 1fr);
-    margin: 0 30vw;
-    grid-column-gap: 2em;
-}
-
-    #accountEditWrapper p{
-        color:var(--text-color);
-        text-align: right;
-        font-size: 1.5em;
-        font-style: oblique;
-    }
-
-    #accountEditWrapper input{
-        height: 3em;
-    }
-
-    #MainContent_avatarPreview{
-        width: 6em;
-    }
-
-    #MainContent_btnChangePassword{
-        padding: 1em;
-        font-size: 1.5em;
-        margin: 0;
-    }
-
-}
 
 /* Responsive: Smaller than portrait tablets*/
 @media screen and (max-width: 767px) {

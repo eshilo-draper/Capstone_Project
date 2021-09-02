@@ -19,6 +19,13 @@ namespace Capstone_Project
             {
                 Response.Redirect("default");
             }
+
+            // preload user avatar and bio into image and description areas
+            Account temp = new Account();
+            int userID = int.Parse(Request.QueryString["user"].ToString());
+            imageBig.ImageUrl = temp.getAvatarByID(userID);
+            lblImageTitle.Text = temp.getDisplayNameByID(userID);
+            lblImageInfo.Text = temp.getBioByID(userID);
         }
 
         public string[,] getImages()

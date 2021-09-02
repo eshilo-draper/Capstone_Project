@@ -24,6 +24,15 @@ namespace Capstone_Project
         protected global::System.Web.UI.WebControls.Panel uploadForm;
 
         /// <summary>
+        /// lblImageID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImageID;
+
+        /// <summary>
         /// imageUpload control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,24 @@ namespace Capstone_Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload imageUpload;
+
+        /// <summary>
+        /// tempLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label tempLabel;
+
+        /// <summary>
+        /// imagePreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imagePreview;
 
         /// <summary>
         /// txt_Title control.
@@ -76,5 +103,14 @@ namespace Capstone_Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
+
+        /// <summary>
+        /// btnSaveChanges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
     }
 }

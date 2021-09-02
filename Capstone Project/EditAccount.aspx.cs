@@ -117,5 +117,10 @@ namespace Capstone_Project
                 }
             }
         }
+
+        protected void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("changepassword");
+        }
     }
 }

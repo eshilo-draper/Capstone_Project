@@ -15,24 +15,35 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <script>
+        function toggleDropdown()
+        {
+            document.getElementById("userDropdown").classList.toggle("dropdownVisible");
+        }
+    </script>
+
 </head>
 <body>
     <form runat="server">
         <header>
             <div id="headerWrapper">
+
                 <div id="banner">
-                <%-- TODO: Add site title and/or logo to banner --%>
-                <h2>Site title to go here</h2>
+                MyPortfolio
                 </div>
+
                 <div id="loggedOut" runat="server">
                     <asp:Button ID="btnLogin" class="button" Text="Log In" runat="server" OnClick="btnLogin_Click" />
                     <asp:Button ID="btnRegister" class="button" Text="Register" runat="server" OnClick="btnRegister_Click" />
                 </div>
                 <div id="loggedIn" runat="server" class="hidden">
-                    <img id="headerAvatar" src="Site_Images/placeholder.png" />
-                    <asp:Label ID="loggedIn_un" runat="server" />
-                    <asp:Button ID="btnAccountSettings" class="button" Text="Account Settings" runat="server" OnClick="btnAccountSettings_Click" />
-                    <asp:Button ID="btnLogout" class="button" Text="Log Out" runat="server" OnClick="btnLogout_Click" />
+                    <asp:Image ID="avatar" runat="server" onclick="toggleDropdown()"/>
+                    <asp:Label ID="loggedIn_un" runat="server" onclick="toggleDropdown()"/>
+                    <div id="userDropdown">
+                        <asp:Button ID="btnAccountSettings" class="button" Text="Account Settings" runat="server" OnClick="btnAccountSettings_Click" />
+                        <asp:Button ID="btnLogout" class="button" Text="Log Out" runat="server" OnClick="btnLogout_Click" />
+                    </div>
+                    
                 </div>
             </div>
         </header>

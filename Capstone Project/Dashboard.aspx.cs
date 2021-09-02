@@ -33,8 +33,8 @@ namespace Capstone_Project
             Account temp = new Account();
             SqlDataReader galleryReader = temp.getUploads(int.Parse(Session["userID"].ToString()), "ORDER BY CompletionDate ASC");
 
-            // convert galleryReader to a list of lists of length 20
-            string[,] tempList = new string[20, 5];
+            // convert galleryReader to a list of lists of excessive length
+            string[,] tempList = new string[10000, 6];
 
             int row = 0;
 
@@ -45,16 +45,17 @@ namespace Capstone_Project
                 tempList[row, 2] = galleryReader["medium"].ToString();
                 tempList[row, 3] = galleryReader["completionDate"].ToString();
                 tempList[row, 4] = galleryReader["description"].ToString();
+                tempList[row, 5] = galleryReader["imageID"].ToString();
 
                 row++;
             }
 
             // use row count to generate list of minimum length
-            galleryList = new string[row, 5];
+            galleryList = new string[row, 6];
 
             for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     galleryList[i, j] = tempList[i, j];
                 }
