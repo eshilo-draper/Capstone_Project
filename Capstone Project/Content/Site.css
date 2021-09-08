@@ -11,6 +11,11 @@
     body {
         background-color: var(--content-primary);
         height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1, h2, h3, #banner {
+        font-family: Georgia, Cambria, Cochin, Times, Times New Roman, serif;
     }
 
     .body-content {
@@ -187,6 +192,11 @@
             position: relative;
             left: 46%;
             width: 8%;
+            opacity: 75%;
+        }
+
+        #homeWrapper #MainContent_btnUpload:hover{
+            opacity: 100%;
         }
 
     #dashboardImageGrid {
@@ -199,7 +209,12 @@
         #dashboardImageGrid .galleryImage {
             height: 25vh;
             margin-right: 2em;
+            margin-bottom: 2em;
             box-shadow: 5px 5px 5px black;
+        }
+
+        #dashboardImageGrid .galleryImage:hover{
+            cursor: pointer;
         }
 
     /* Upload Image *************************************************************/
@@ -234,7 +249,7 @@
                     text-decoration: underline;
                 }
 
-                #tempLabel:hover, #imagePreview:hover{
+                #uploadLabel:hover{
                     cursor: pointer;
                 }
 
@@ -263,7 +278,7 @@
                 height: 1.5em;
             }
 
-            #MainContent_uploadForm #uploadRight #MainContent_btnUpload {
+            #MainContent_uploadForm #uploadRight #MainContent_btnUpload, #MainContent_uploadForm #uploadRight #MainContent_btnSaveChanges {
                 grid-column: 1/ span 2;
                 height: 3em;
             }
@@ -415,6 +430,11 @@
             grid-column: 2;
         }
 
+        #MainContent_accountForm #MainContent_submit, #MainContent_accountForm #MainContent_btnSubmitEdit{
+            grid-column: 1/ span 2;
+            margin-left: 33%;
+        }
+
         #MainContent_accountForm textarea {
             margin: 0.5em;
             grid-column: 2;
@@ -433,6 +453,10 @@
     #MainContent_avatarPreview{
         height: 6em;
         margin-left: 1em;
+    }
+
+    #MainContent_btnChangePassword{
+        width:15em;
     }
 
 /* Logout Confirmation Page ***********************************/

@@ -31,7 +31,7 @@ namespace Capstone_Project
 
             // create a temp account object and use it to retrieve all images by the selected user (default sort by completionDate ascending)
             Account temp = new Account();
-            SqlDataReader galleryReader = temp.getUploads(int.Parse(Session["userID"].ToString()), "ORDER BY CompletionDate ASC");
+            SqlDataReader galleryReader = temp.getUploads(int.Parse(Session["userID"].ToString()), "ORDER BY CompletionDate DESC");
 
             // convert galleryReader to a list of lists of excessive length
             string[,] tempList = new string[10000, 6];
