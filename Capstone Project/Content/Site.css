@@ -12,6 +12,7 @@
         background-color: var(--content-primary);
         height: 100%;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
     }
 
     h1, h2, h3, #banner {
@@ -179,25 +180,38 @@
                 font-size: 1.7em;
             }
 
-        .homeImage{
-            width: 33vw;
-            height: 25vh;
+        .homeImage {
+            max-width: 33vw;
+            max-height: 25vh;
+            box-shadow: 5px 5px 5px black;
         }
 
-        #homeWrapper h1 {
-            text-align: center;
-        }
+            #homeWrapper h1 {
+                text-align: center;
+            }
 
-        #homeWrapper #MainContent_btnUpload {
-            position: relative;
-            left: 46%;
-            width: 8%;
-            opacity: 75%;
-        }
+            #homeWrapper #getStarted{
+                text-align: center;
+                font-size: 1.5em;
+            }
 
-        #homeWrapper #MainContent_btnUpload:hover{
-            opacity: 100%;
-        }
+            #homeWrapper #MainContent_btnUpload {
+                position: relative;
+                left: 40%;
+                width: 8%;
+                opacity: 75%;
+            }
+
+            #homeWrapper #btnShare {
+                position: relative;
+                left: 46%;
+                width: 8%;
+                opacity: 75%;
+            }
+
+            #homeWrapper #MainContent_btnUpload:hover{
+                opacity: 100%;
+            }
 
     #dashboardImageGrid {
         display:flex;
@@ -262,7 +276,7 @@
             display: grid;
             width: 50%;
             grid-template-columns: 25% 75%;
-            grid-template-rows: repeat(5, auto);
+            grid-template-rows: repeat(6, auto);
             grid-column-gap: 1em;
         }
 
@@ -278,9 +292,13 @@
                 height: 1.5em;
             }
 
-            #MainContent_uploadForm #uploadRight #MainContent_btnUpload, #MainContent_uploadForm #uploadRight #MainContent_btnSaveChanges {
+            #MainContent_uploadForm #uploadRight #MainContent_btnUpload, #MainContent_uploadForm #uploadRight #MainContent_btnSaveChanges, #MainContent_lblUploadError {
                 grid-column: 1/ span 2;
                 height: 3em;
+            }
+
+            #MainContent_lblUploadError{
+                color: white;
             }
 
     /* User Gallery ****************************************************/
@@ -302,7 +320,8 @@
     }
 
         #MainContent_imageBig {
-            width: 65%;
+            max-width: 65%;
+            max-height: 65%;
             margin-top: 1em;
             display:block;
             margin-left: 10em;
@@ -330,11 +349,12 @@
             }
 
     #galleryRight {
+        margin-top: 1em;
+        max-width: 45vw;
         grid-column: 2;
         display: flex;
         flex-wrap:wrap;
         justify-content:center;
-        padding: 1em;
     }
 
         #galleryRight img.galleryImage {

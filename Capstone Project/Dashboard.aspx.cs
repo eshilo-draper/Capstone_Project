@@ -63,5 +63,10 @@ namespace Capstone_Project
 
             return galleryList;
         }
+
+        public string getUserID()
+        {
+            return Session["userID"].ToString();
+        }
     }
 }

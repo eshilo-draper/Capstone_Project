@@ -52,15 +52,50 @@ namespace Capstone_Project
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            Account uploader = new Account();
+            string status = "";
+            // ensure all fields with max length aren't too long or empty
+            if(txt_Title.Text.Length > 100)
+            {
+                status += "ERROR: title exceeds length limit of 100 characters <br>";
+            }
+            if(txt_Title.Text.Length < 1)
+            {
+                status += "ERROR: title required <br>";
+            }
+            if(txt_Medium.Text.Length > 100)
+            {
+                status += "ERROR: medium exceeds length limit of 100 characters <br>";
+            }
+            if(txt_Medium.Text.Length < 1)
+            {
+                status += "ERROR: medium required <br>";
+            }
+            if (!imageUpload.HasFile)
+            {
+                status += "ERROR: no image uploaded";
+            }
 
+            Account uploader = new Account();
             string uploadPath = uploader.getUsernameByID(int.Parse(Session["userID"].ToString())) + "_" + imageUpload.FileName;
 
-            imageUpload.SaveAs(Server.MapPath("Uploads/" + uploadPath));
+            if(uploadPath.Length > 100)
+            {
+                status += "ERROR: file name length exceeds limit.";
+            }
 
-            uploader.uploadImageData(int.Parse(Session["userID"].ToString()), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
+            if (status.Contains("ERROR"))
+            {
+                lblUploadError.Text = status;
+            }
+            else
+            {
 
-            Response.Redirect("dashboard");
+                imageUpload.SaveAs(Server.MapPath("Uploads/" + uploadPath));
+
+                uploader.uploadImageData(int.Parse(Session["userID"].ToString()), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
+
+                Response.Redirect("dashboard");
+            }
         }
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)

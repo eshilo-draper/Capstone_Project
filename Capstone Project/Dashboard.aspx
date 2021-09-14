@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div id="homeWrapper">
         <asp:ImageButton src="Site_Images/Upload.png" ID="btnUpload" runat="server" OnClick="btnUpload_Click"/>
+        <input type="image" src="Site_Images/Share.png" id="btnShare" onclick="copyGalleryAddress()"/>
         <div id="dashboardImageGrid"></div>
     </div>
 
@@ -30,5 +31,10 @@
                 document.getElementById("dashboardImageGrid").appendChild(img);
             }
         });
+
+        function copyGalleryAddress() {
+            navigator.clipboard.writeText("localhost:44303/gallery?user=" + <%= serializer.Serialize(getUserID()) %>);
+            alert("Copied gallery address to clipboard. Note: localhost port may differ when code is run locally.");
+        }
     </script>
 </asp:Content>

@@ -52,6 +52,7 @@
             <br />
             <asp:Button ID="btnUpload" class="button" runat="server" OnClick="btnUpload_Click" Text="Upload"/>
             <asp:Button ID="btnSaveChanges" class="button" runat="server" Text="Save Changes"  OnClick="btnSaveChanges_Click"/>
+            <asp:Label ID="lblUploadError" runat="server"></asp:Label>
         </div>
     </asp:Panel>
 </asp:Content>

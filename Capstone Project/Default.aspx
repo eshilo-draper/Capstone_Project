@@ -10,16 +10,17 @@
                 <hr />
                 <p>With MyPortfolio, just a few clicks and a gallery of your art creates itself for you. Just grab the link, and share your art with anyone! Good for showing to prospective employers, people looking to commission, or anyone you want to see your creations!</p>
             </div>
-            <img class="homeImage" src="Site_Images/placeholder.png" /> <!-- REPLACE IMAGE -->
+            <img class="homeImage" src="Site_Images/UploadScreenshot.png" />
         </div>
         <div id="homeBottom">
-            <img class="homeImage" src="Site_Images/placeholder.png" /> <!-- REPLACE IMAGE -->
+            <img class="homeImage" src="Site_Images/GalleryScreenshot.png" />
             <div class="homeText">
                 <h2>A gallery curated by the user</h2>
                 <hr />
                 <p>Viewers of a portfolio can click on each image to maximize it and read a bit about it. Images can be sorted by medium or arranged by date, ascending or descending. To return to the artist’s photo and biography, just click the name at the top of the page.</p>
             </div>
         </div>
+        <p id="getStarted">To get started, <a href="Login.aspx">log in</a> or <a href="Register.aspx">register</a></p>
     </div>
 
 </asp:Content>
