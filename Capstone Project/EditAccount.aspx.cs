@@ -40,10 +40,32 @@ namespace Capstone_Project
 
         protected void btnSubmitEdit_Click(object sender, EventArgs e)
         {
+            string status = "";
+
             // ensure all required fields have been filled out
             if (txt_username.Text == "" || txt_displayName.Text == "" || txt_email.Text == "")
             {
-                lblError.Text = "ERROR: username, display name and email required <br />";
+                status += "ERROR: username, display name and email required <br />";
+            }
+
+            if(txt_username.Text.Length > 20)
+            {
+                status += "ERROR: username exceeds maximum length of 20 characters <br />";
+            }
+
+            if(txt_displayName.Text.Length > 50)
+            {
+                status += "ERROR: display name exceeds maximum length of 50 characters <br />";
+            }
+
+            if(txt_email.Text.Length > 320)
+            {
+                status += "ERROR: email address exceeds maximum length of 320 characters <br />";
+            }
+
+            if (status.Contains("ERROR"))
+            {
+                lblEditError.Text = status;
             }
             else
             {
@@ -84,7 +106,12 @@ namespace Capstone_Project
                     // check if avatar being uploaded has a 1:1 aspect ratio
                     if (bmpAvatar.Width != bmpAvatar.Height)
                     {
-                        errors += "Error: avatar must be square.";
+                        errors += "ERROR: avatar must be square.";
+                    }
+
+                    if(avatarString.Length > 100)
+                    {
+                        errors += "ERROR: avatar has excessive filename length";
                     }
                 }
 
@@ -100,7 +127,7 @@ namespace Capstone_Project
                     errors = temp.updateAccountInfo();
                     if (errors != "success")
                     {
-                        lblError.Text = errors;
+                        lblEditError.Text = errors;
                     }
                     else
                     {
@@ -113,7 +140,7 @@ namespace Capstone_Project
                 }
                 else
                 {
-                    lblError.Text = errors;
+                    lblEditError.Text = errors;
                 }
             }
         }

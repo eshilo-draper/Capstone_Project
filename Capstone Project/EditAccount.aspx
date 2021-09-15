@@ -25,7 +25,7 @@
             <p>Biography:</p> <asp:TextBox TextMode="MultiLine" ID="txt_bio" runat="server" />
 
             <asp:Button ID="btnSubmitEdit" Text="Update" runat="server" onClick="btnSubmitEdit_Click" class="button" />
-            <asp:Label ID="lblError" runat="server"></asp:Label>
+            <asp:Label ID="lblEditError" runat="server"></asp:Label>
         </div>
     </asp:Panel>
     <script>

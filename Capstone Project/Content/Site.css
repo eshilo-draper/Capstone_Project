@@ -83,6 +83,10 @@
         height: 4em;
     }
 
+    #avatar:hover, #loggedIn_un:hover {
+        cursor:pointer;
+    }
+
     #userDropdown{
         background-color: var(--content-secondary);
         position: absolute;
@@ -321,7 +325,7 @@
 
         #MainContent_imageBig {
             max-width: 65%;
-            max-height: 65%;
+            max-height: 55%;
             margin-top: 1em;
             display:block;
             margin-left: 10em;
@@ -458,6 +462,13 @@
         #MainContent_accountForm textarea {
             margin: 0.5em;
             grid-column: 2;
+        }
+
+        #MainContent_lblLoginError, #MainContent_lblEditError{
+            grid-column: 1/ span 2;
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.5em;
         }
 
     #MainContent_register {

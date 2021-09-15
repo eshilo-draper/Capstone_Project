@@ -33,7 +33,7 @@ namespace Capstone_Project
             }
             else
             {
-                lblError.Text = status;
+                lblLoginError.Text = status;
             }
         }
     }

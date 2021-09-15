@@ -18,10 +18,32 @@ namespace Capstone_Project
 
         protected void register_Click(object sender, EventArgs e)
         {
+            string status = "";
+
             // ensure all fields have been filled out
             if(txt_username.Text == "" || txt_password.Text == "" || txt_confirmPassword.Text == "" || txt_displayName.Text == "" || txt_email.Text == "" || dtp_dob.Text == "")
             {
-                lblError.Text = "ERROR: all fields required <br />";
+                status += "ERROR: all fields required <br />";
+            }
+            
+            if(txt_username.Text.Length > 20)
+            {
+                status += "ERROR: username exceeds maximum length of 20 characters <br />";
+            }
+
+            if(txt_displayName.Text.Length > 50)
+            {
+                status += "ERROR: display name exceeds maximum length of 50 characters <br />";
+            }
+
+            if(txt_email.Text.Length > 320)
+            {
+                status += "ERROR: email address exceeds maximum length of 320 characters";
+            }
+
+            if (status.Contains("ERROR"))
+            {
+                lblError.Text = status;
             }
             else
             {

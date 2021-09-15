@@ -6,9 +6,7 @@
             <p>Username:</p> <asp:TextBox ID="username" runat="server" />
             <p>Password:</p> <asp:TextBox ID="password" runat="server" TextMode="Password"/>
             <asp:Button Text="submit" class="button" ID="submit" OnClick="submit_Click" runat="server" />
-            <div id="error">
-                <asp:Label ID="lblError" runat="server"/>
-            </div>
+            <asp:Label ID="lblLoginError" runat="server"/>
         </div>
     </asp:Panel>
 </asp:Content>
