@@ -100,6 +100,24 @@ namespace Capstone_Project
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
+            string status = "";
+            // ensure all fields with max length aren't too long or empty
+            if (txt_Title.Text.Length > 100)
+            {
+                status += "ERROR: title exceeds length limit of 100 characters <br>";
+            }
+            if (txt_Title.Text.Length < 1)
+            {
+                status += "ERROR: title required <br>";
+            }
+            if (txt_Medium.Text.Length > 100)
+            {
+                status += "ERROR: medium exceeds length limit of 100 characters <br>";
+            }
+            if (txt_Medium.Text.Length < 1)
+            {
+                status += "ERROR: medium required <br>";
+            }
             Account uploader = new Account();
 
             string uploadPath = currentImage;
@@ -111,9 +129,21 @@ namespace Capstone_Project
                 imageUpload.SaveAs(Server.MapPath("Uploads/" + uploadPath));
             }
 
-            uploader.updateImageData(int.Parse(Request.QueryString["editimage"]), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
+            if (uploadPath.Length > 100)
+            {
+                status += "ERROR: file name length exceeds limit.";
+            }
 
-            Response.Redirect("dashboard");
+            if (status.Contains("ERROR"))
+            {
+                lblUploadError.Text = status;
+            }
+            else
+            {
+                uploader.updateImageData(int.Parse(Request.QueryString["editimage"]), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
+
+                Response.Redirect("dashboard");
+            }
         }
     }
 }
