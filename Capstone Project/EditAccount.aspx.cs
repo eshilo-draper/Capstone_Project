@@ -6,7 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Capstone_Project.Models;
 using System.Data;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using MySqlConnector;
 using System.Net.Mail;
 using System.Drawing; // used to verify avatar dimensions
 using System.IO; // used to get file extension of upload
@@ -25,7 +26,7 @@ namespace Capstone_Project
             if (!Page.IsPostBack)
             {
                 Account temp = new Account();
-                SqlDataReader accountInfo = temp.getAccountInfo(int.Parse(Session["userID"].ToString()));
+                MySqlDataReader accountInfo = temp.getAccountInfo(int.Parse(Session["userID"].ToString()));
 
                 while (accountInfo.Read())
                 {

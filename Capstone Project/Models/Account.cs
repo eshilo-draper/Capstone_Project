@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data;
-using System.Data.SqlClient;
+//using System.Data;
+
+using MySql.Data;
+using MySqlConnector;
 
 // used for password encryption:
 using System.Security.Cryptography;
@@ -54,7 +56,10 @@ namespace Capstone_Project.Models
 
         private string serverAddress()
         {
-            return @"Server=sql.neit.edu\studentsqlserver,4500;Database=SE245_EShilo-Draper;User Id=SE245_EShilo-Draper;Password=008011411;";
+            // old login for school server: return @"Server=sql.neit.edu\studentsqlserver,4500;Database=SE245_EShilo-Draper;User Id=SE245_EShilo-Draper;Password=008011411;";
+
+            return @"Server=localhost,3306;Database=MyPortfolio;User Id=capstone;Password=1234;";
+            //TrustServerCertificate=true;Encrypt=false;
         }
 
         public string register()
@@ -65,8 +70,13 @@ namespace Capstone_Project.Models
             string salt = Convert.ToBase64String(saltBytes); // used for db storage
 
             // salt password
-            byte[] saltedPW = Encoding.Unicode.GetBytes(password);
-            saltedPW.Concat(saltBytes);
+            byte[] PWBytes = Encoding.Unicode.GetBytes(password);
+
+            // create new byte array of length of pw and salt combined, and copy both
+            // essentially manual concatenation because I was having issues with .Concat()
+            byte[] saltedPW = new byte[PWBytes.Length + saltBytes.Length];
+            PWBytes.CopyTo(saltedPW, 0);
+            saltBytes.CopyTo(saltedPW, PWBytes.Length);
 
             // hash salted pw
             HashAlgorithm encryptor = new SHA256Managed();
@@ -76,10 +86,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // attempt adding record to db (validity checked by page)
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand cmd = new SqlCommand();
+            MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "INSERT INTO Capstone_Login (username, passwordHash, passwordSalt, displayName, email, dob, icon) VALUES (@username, @passwordHash, @passwordSalt, @displayName, @email, @dob, @icon);";
             cmd.Connection = connection;
 
@@ -111,10 +121,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // check database for matching login info
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT userID, passwordHash, passwordSalt FROM Capstone_Login WHERE username = @username;";
             command.Connection = connection;
 
@@ -123,13 +133,21 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
                     // retrieve password salt and append to password attempt
-                    byte[] saltedPW = Encoding.Unicode.GetBytes(password);
-                    saltedPW.Concat(Convert.FromBase64String(results["passwordSalt"].ToString()));
+                    byte[] PWBytes = Encoding.Unicode.GetBytes(password);
+                    byte[] saltBytes = Convert.FromBase64String(results["passwordSalt"].ToString());
+                    //saltedPW.Concat(Convert.FromBase64String(results["passwordSalt"].ToString()));
+
+                    // create new byte array of length of pw and salt combined, and copy both
+                    // essentially manual concatenation because I was having issues with .Concat()
+                    byte[] saltedPW = new byte[PWBytes.Length + saltBytes.Length];
+                    PWBytes.CopyTo(saltedPW, 0);
+                    saltBytes.CopyTo(saltedPW, PWBytes.Length);
+
                     // hash salted pw
                     HashAlgorithm encryptor = new SHA256Managed();
                     byte[] hashedBytes = encryptor.ComputeHash(saltedPW);
@@ -159,10 +177,10 @@ namespace Capstone_Project.Models
         {
             string status = "";
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT username FROM Capstone_Login WHERE username = @username;";
             command.Connection = connection;
 
@@ -171,7 +189,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 if (results.HasRows)
                 {
@@ -192,10 +210,10 @@ namespace Capstone_Project.Models
         {
             string status = "";
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT username FROM Capstone_Login WHERE username = @username AND userID != @userID;";
             command.Connection = connection;
 
@@ -205,7 +223,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 if (results.HasRows)
                 {
@@ -227,10 +245,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // check database for matching login info (TEMP, NOT SECURE)
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT username FROM Capstone_Login WHERE userID = @userID;";
             command.Connection = connection;
 
@@ -239,7 +257,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
@@ -262,10 +280,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // check database for matching login info (TEMP, NOT SECURE)
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT displayName FROM Capstone_Login WHERE userID = @userID;";
             command.Connection = connection;
 
@@ -274,7 +292,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
@@ -296,10 +314,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // check database for matching login info (TEMP, NOT SECURE)
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT icon FROM Capstone_Login WHERE userID = @userID;";
             command.Connection = connection;
 
@@ -308,7 +326,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
@@ -332,10 +350,10 @@ namespace Capstone_Project.Models
             string status = "";
 
             // check database for matching login info (TEMP, NOT SECURE)
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT bio FROM Capstone_Login WHERE userID = @userID;";
             command.Connection = connection;
 
@@ -344,7 +362,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = command.ExecuteReader();
+                MySqlDataReader results = command.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
@@ -367,10 +385,10 @@ namespace Capstone_Project.Models
         {
             string status = "";
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "INSERT INTO Capstone_Uploads (userID, imagePath, title, medium, completionDate, description) VALUES (@userID, @imagePath, @title, @medium, @completionDate, @description);";
             command.Connection = connection;
 
@@ -400,10 +418,10 @@ namespace Capstone_Project.Models
         {
             string status = "";
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "UPDATE Capstone_Uploads SET imagePath = @imagePath, title = @title, medium = @medium, completionDate = @completionDate, description = @description WHERE imageID = @imageID;";
             command.Connection = connection;
 
@@ -429,12 +447,12 @@ namespace Capstone_Project.Models
             return status;
         }
 
-        public SqlDataReader getUploads(int userID, string condition)
+        public MySqlDataReader getUploads(int userID, string condition)
         {
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.CommandText = "SELECT * FROM Capstone_Uploads WHERE userID = @userID " + condition + ";"; // condition is always auto-generated, so it is safe to add
 
             command.Parameters.AddWithValue("@userID", userID);
@@ -442,7 +460,7 @@ namespace Capstone_Project.Models
 
             command.Connection = connection;
             connection.Open();
-            SqlDataReader uploads = command.ExecuteReader();
+            MySqlDataReader uploads = command.ExecuteReader();
 
             return uploads;
         }
@@ -451,10 +469,10 @@ namespace Capstone_Project.Models
         {
             string[] dataList = new string[0];
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = "SELECT * FROM Capstone_Uploads WHERE imageID = @imageID;";
 
@@ -463,7 +481,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader data = command.ExecuteReader();
+                MySqlDataReader data = command.ExecuteReader();
                 while (data.Read()) // should only loop once
                 {
                     // ensure user has permission to edit post
@@ -492,18 +510,18 @@ namespace Capstone_Project.Models
             return dataList;
         }
 
-        public SqlDataReader getAccountInfo(int userID)
+        public MySqlDataReader getAccountInfo(int userID)
         {
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = "SELECT username, displayName, email, bio, icon FROM Capstone_Login WHERE userID = @userID;";
             command.Parameters.AddWithValue("@userID", userID);
 
             connection.Open();
-            SqlDataReader result = command.ExecuteReader();
+            MySqlDataReader result = command.ExecuteReader();
             return result;
         }
 
@@ -511,10 +529,10 @@ namespace Capstone_Project.Models
         {
             string status = "";
             
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand command = new SqlCommand();
+            MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
             command.CommandText = "UPDATE Capstone_Login SET username = @username, displayName = @displayName, email = @email, bio = @bio, icon = @icon WHERE userID = @userID;";
             command.Parameters.AddWithValue("@username", username);
@@ -546,10 +564,10 @@ namespace Capstone_Project.Models
             string status = "";
             string hashedPW = "";
 
-            SqlConnection connection = new SqlConnection();
+            MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
-            SqlCommand getSalt = new SqlCommand();
+            MySqlCommand getSalt = new MySqlCommand();
             getSalt.CommandText = "SELECT passwordSalt FROM Capstone_Login WHERE username = @username;";
             getSalt.Connection = connection;
 
@@ -558,7 +576,7 @@ namespace Capstone_Project.Models
             try
             {
                 connection.Open();
-                SqlDataReader results = getSalt.ExecuteReader();
+                MySqlDataReader results = getSalt.ExecuteReader();
 
                 while (results.Read()) // should only go through this loop once
                 {
@@ -579,7 +597,7 @@ namespace Capstone_Project.Models
             }
 
             if (status == "") {
-                SqlCommand changePW = new SqlCommand();
+                MySqlCommand changePW = new MySqlCommand();
                 changePW.CommandText = "UPDATE Capstone_Login SET passwordHash = @passwordHash WHERE username = @username";
                 changePW.Connection = connection;
 

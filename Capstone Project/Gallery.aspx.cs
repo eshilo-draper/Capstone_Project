@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Capstone_Project.Models;
-using System.Data.SqlClient;
+using MySqlConnector;
 
 namespace Capstone_Project
 {
@@ -37,7 +37,7 @@ namespace Capstone_Project
             {
                 // create a temp account object and use it to retrieve all images by the selected user (default sort by completionDate ascending)
                 Account temp = new Account();
-                SqlDataReader galleryReader = temp.getUploads(galleryID, "ORDER BY CompletionDate DESC");
+                MySqlDataReader galleryReader = temp.getUploads(galleryID, "ORDER BY CompletionDate DESC");
 
                 // convert galleryReader to a list of lists of length 20
                 string[,] tempList = new string[20, 5];
