@@ -135,6 +135,10 @@ namespace Capstone_Project
                         if (btnUploadAvatar.HasFile)
                         {
                             btnUploadAvatar.SaveAs(Server.MapPath(avatarString));
+
+                            // make sure file can be overwritten
+                            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Server.MapPath(avatarString));
+                            fileInfo.IsReadOnly = false;
                         }
                         Response.Redirect("dashboard");
                     }

@@ -12,7 +12,6 @@ namespace Capstone_Project
     public partial class User : System.Web.UI.Page
     {
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["user"] == null)

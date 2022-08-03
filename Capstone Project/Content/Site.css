@@ -8,11 +8,19 @@
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+    html{
+        height:100%;
+    }
+
     body {
         background-color: var(--content-primary);
         height: 100%;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         overflow-x: hidden;
+    }
+
+    body form{
+        height:100%;
     }
 
     h1, h2, h3, #banner {
@@ -315,7 +323,8 @@
     }
 
     #galleryLeft {
-        position:fixed;
+        position:absolute;
+        left:0;
         grid-column: 1;
         width: 50%;
         height: 100%;
