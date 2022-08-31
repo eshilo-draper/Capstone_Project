@@ -20,6 +20,9 @@
         {
             document.getElementById("userDropdown").classList.toggle("dropdownVisible");
         }
+        function toggleAdminDropdown() {
+            document.getElementById("adminDropdown").classList.toggle("dropdownVisible");
+        }
     </script>
 
 </head>
@@ -37,6 +40,13 @@
                     <asp:Button ID="btnRegister" class="button" Text="Register" runat="server" OnClick="btnRegister_Click" />
                 </div>
                 <div id="loggedIn" runat="server" class="hidden">
+                    <div id="admin" runat="server" class="hidden">
+                        <asp:Image ID="adminMenu" runat="server" onclick="toggleAdminDropdown()" ImageUrl="~/Site_Images/hamburgerButton.png"/>
+                        <div id="adminDropdown">
+                            <asp:Button ID="btnAdminGallery" class="button" Text="Admin Gallery" runat="server" OnClick="btnAdminGallery_Click" />
+                            <asp:Button ID="btnUserDash" class="button" Text="User Dashboard" runat="server" OnClick="btnUserDash_Click" />
+                        </div>
+                    </div>
                     <asp:Image ID="avatar" runat="server" onclick="toggleDropdown()"/>
                     <asp:Label ID="loggedIn_un" runat="server" onclick="toggleDropdown()"/>
                     <div id="userDropdown">

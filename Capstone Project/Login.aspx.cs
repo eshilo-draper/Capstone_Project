@@ -28,7 +28,9 @@ namespace Capstone_Project
             int id;
             if(int.TryParse(status, out id))
             {
+                temp.setID(id);
                 Session["userID"] = id;
+                Session["isAdmin"] = temp.isAdmin();
                 Response.Redirect("dashboard");
             }
             else

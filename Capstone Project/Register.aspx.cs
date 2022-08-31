@@ -98,7 +98,7 @@ namespace Capstone_Project
                     else
                     {
                         Session["userID"] = temp.login();
-                        Response.Redirect("default"); // CHANGE THIS REDIRECT
+                        Response.Redirect("dashboard");
                     }
                 }
                 else

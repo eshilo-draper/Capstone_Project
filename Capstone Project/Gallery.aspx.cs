@@ -38,34 +38,41 @@ namespace Capstone_Project
                 Account temp = new Account();
                 MySqlDataReader galleryReader = temp.getUploads(galleryID, "ORDER BY CompletionDate DESC");
 
-                // convert galleryReader to a list of lists of length 20
-                string[,] tempList = new string[20, 5];
-
-                int row = 0;
-
-                while (galleryReader.Read())
+                if(galleryReader != null)
                 {
-                    tempList[row, 0] = galleryReader["imagePath"].ToString();
-                    tempList[row, 1] = galleryReader["title"].ToString();
-                    tempList[row, 2] = galleryReader["medium"].ToString();
-                    tempList[row, 3] = galleryReader["completionDate"].ToString();
-                    tempList[row, 4] = galleryReader["description"].ToString();
+                    // convert galleryReader to a list of lists of length 20
+                    string[,] tempList = new string[20, 5];
 
-                    row++;
-                }
+                    int row = 0;
 
-                // use row count to generate list of minimum length
-                galleryList = new string[row, 5];
-
-                for (int i = 0; i < row; i++)
-                {
-                    for (int j = 0; j < 5; j++)
+                    while (galleryReader.Read())
                     {
-                        galleryList[i, j] = tempList[i, j];
-                    }
-                }
+                        tempList[row, 0] = galleryReader["imagePath"].ToString();
+                        tempList[row, 1] = galleryReader["title"].ToString();
+                        tempList[row, 2] = galleryReader["medium"].ToString();
+                        tempList[row, 3] = galleryReader["completionDate"].ToString();
+                        tempList[row, 4] = galleryReader["description"].ToString();
 
-                return galleryList;
+                        row++;
+                    }
+
+                    // use row count to generate list of minimum length
+                    galleryList = new string[row, 5];
+
+                    for (int i = 0; i < row; i++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            galleryList[i, j] = tempList[i, j];
+                        }
+                    }
+
+                    return galleryList;
+                }
+                else
+                {
+                    return new string[0, 0];
+                }
             }
             else
             {

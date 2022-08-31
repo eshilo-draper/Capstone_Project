@@ -24,6 +24,11 @@ namespace Capstone_Project.Models
         private string bio;
         private string icon;
 
+        public void setID(int value)
+        {
+            this.userID = value;
+        }
+
         public Account()
         {
 
@@ -110,7 +115,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -167,10 +174,42 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
+        }
+
+        // check admin status of account
+        public Boolean isAdmin()
+        {
+            MySqlConnection connection = new MySqlConnection();
+            connection.ConnectionString = @serverAddress();
+
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = "SELECT isAdmin FROM Capstone_Login WHERE userID = @userID;";
+            command.Connection = connection;
+
+            command.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                connection.Open();
+                MySqlDataReader results = command.ExecuteReader();
+
+                while (results.Read()) // should only go through this loop once
+                {
+                    return Boolean.Parse(results["isAdmin"].ToString());
+                }
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                
+            }
+            return false;
         }
 
         public string checkUsername() // checks if a username already exists in database
@@ -200,7 +239,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -234,7 +275,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -270,7 +313,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -305,7 +350,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -313,7 +360,7 @@ namespace Capstone_Project.Models
         {
             string status = "";
 
-            // check database for matching login info (TEMP, NOT SECURE)
+            // check database for matching login info
             MySqlConnection connection = new MySqlConnection();
             connection.ConnectionString = @serverAddress();
 
@@ -339,7 +386,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -375,7 +424,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -407,7 +458,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
 
@@ -440,7 +493,9 @@ namespace Capstone_Project.Models
             }
             catch (Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
 
@@ -459,14 +514,24 @@ namespace Capstone_Project.Models
             command.Parameters.AddWithValue("@condition", condition);
 
             command.Connection = connection;
-            connection.Open();
-            MySqlDataReader uploads = command.ExecuteReader();
+
+            MySqlDataReader uploads = null;
+            try
+            {
+                connection.Open();
+                uploads = command.ExecuteReader();
+            } catch (Exception err)
+            {
+                // UNHANDLED EXCEPTIONS
+                ErrorLogger.logError(err);
+            }
 
             return uploads;
         }
 
         public string[] getUploadData(int imageID, int userID)
         {
+            this.userID = userID;
             string[] dataList = new string[0];
 
             MySqlConnection connection = new MySqlConnection();
@@ -484,8 +549,10 @@ namespace Capstone_Project.Models
                 MySqlDataReader data = command.ExecuteReader();
                 while (data.Read()) // should only loop once
                 {
-                    // ensure user has permission to edit post
-                    if (int.Parse(data["userID"].ToString()) == userID)
+                    // ensure user has permission to edit post (is uploader or admin)
+                    int test1 = int.Parse(data["userID"].ToString());
+                    bool test2 = isAdmin();
+                    if (int.Parse(data["userID"].ToString()) == userID || isAdmin())
                     {
                         dataList = new string[7];
 
@@ -502,9 +569,13 @@ namespace Capstone_Project.Models
 
                 connection.Close();
             }
-            catch(Exception e)
+            catch(Exception err)
             {
-                // TODO: add error handling
+                // UNHANDLED EXCEPTIONS
+                ErrorLogger.logError(err);
+                string[] status = new string[1];
+                status[0] = "Internal Error";
+                return status;
             }
 
             return dataList;
@@ -520,9 +591,17 @@ namespace Capstone_Project.Models
             command.CommandText = "SELECT username, displayName, email, bio, icon FROM Capstone_Login WHERE userID = @userID;";
             command.Parameters.AddWithValue("@userID", userID);
 
-            connection.Open();
-            MySqlDataReader result = command.ExecuteReader();
-            return result;
+            try
+            {
+                connection.Open();
+                MySqlDataReader result = command.ExecuteReader();
+                return result;
+            } catch(Exception err)
+            {
+                // UNHANDLED EXCEPTIONS
+                ErrorLogger.logError(err);
+                return null;
+            }
         }
 
         public string updateAccountInfo()
@@ -551,7 +630,9 @@ namespace Capstone_Project.Models
             }
             catch(Exception err)
             {
-                status = err.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             return status;
@@ -591,9 +672,11 @@ namespace Capstone_Project.Models
 
                 connection.Close();
             }
-            catch(Exception e)
+            catch(Exception err)
             {
-                status = e.Message;
+                // UNHANDLED EXCEPTIONS
+                status = "Internal Error";
+                ErrorLogger.logError(err);
             }
 
             if (status == "") {
@@ -610,9 +693,11 @@ namespace Capstone_Project.Models
                     changePW.ExecuteNonQuery();
                     connection.Close();
                 }
-                catch(Exception e)
+                catch(Exception err)
                 {
-                    status = e.Message;
+                    // UNHANDLED EXCEPTIONS
+                    status = "Internal Error";
+                    ErrorLogger.logError(err);
                 }
             }
 

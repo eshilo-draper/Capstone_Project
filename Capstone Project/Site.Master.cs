@@ -18,10 +18,18 @@ namespace Capstone_Project
                 loggedOut.Attributes.Add("class", "hidden");
                 loggedIn.Attributes.Remove("class");
 
-                // retrieve username and avatar based on user ID and display on label
+                // if user is an admin, show the admin menu
+                int ID = int.Parse(Session["userID"].ToString());
                 Account temp = new Account();
-                avatar.ImageUrl = temp.getAvatarByID(int.Parse(Session["userID"].ToString()));
-                loggedIn_un.Text = temp.getDisplayNameByID(int.Parse(Session["userID"].ToString()));
+                temp.setID(ID);
+                if (!temp.isAdmin())
+                {
+                    adminMenu.Attributes.Add("class", "hidden");
+                }
+
+                // retrieve username and avatar based on user ID and display on label
+                avatar.ImageUrl = temp.getAvatarByID(ID);
+                loggedIn_un.Text = temp.getDisplayNameByID(ID);
             }
         }
 
@@ -45,6 +53,16 @@ namespace Capstone_Project
             // store current location in case of cancellation, then redirect to logout confirmation page
             Session["prevURL"] = HttpContext.Current.Request.Url.AbsolutePath;
             Response.Redirect("logout");
+        }
+
+        protected void btnAdminGallery_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("adminGallery");
+        }
+
+        protected void btnUserDash_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("dashboard");
         }
     }
 }

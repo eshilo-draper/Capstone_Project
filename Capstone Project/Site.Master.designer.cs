@@ -51,6 +51,42 @@ namespace Capstone_Project
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl loggedIn;
 
         /// <summary>
+        /// admin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl admin;
+
+        /// <summary>
+        /// adminMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image adminMenu;
+
+        /// <summary>
+        /// btnAdminGallery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminGallery;
+
+        /// <summary>
+        /// btnUserDash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUserDash;
+
+        /// <summary>
         /// avatar control.
         /// </summary>
         /// <remarks>

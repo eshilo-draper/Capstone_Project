@@ -23,7 +23,7 @@
         document.addEventListener("DOMContentLoaded", function () {
 
             <%-- load gallery images --%>
-            for (var i = 0; i < (galleryList.length / 6); i++) { <%-- serializer converts to 1-dimensional array, so use 1/5 of length --%>
+            for (var i = 0; i < (galleryList.length / 6); i++) { <%-- serializer converts to 1-dimensional array, so use 1/6 of length --%>
                 var img = document.createElement("img");
                 img.classList.add("galleryImage");
                 img.setAttribute("src", "Uploads/" + galleryList[i * 6]);

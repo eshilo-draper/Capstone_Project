@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditAccount.aspx.cs" Inherits="Capstone_Project.EditAccount" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Edit Account Details</h1>
     <asp:Panel ID="accountForm" runat="server" DefaultButton="btnSubmitEdit">
         <div id="accountWrapper">
 

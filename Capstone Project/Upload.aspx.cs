@@ -25,7 +25,14 @@ namespace Capstone_Project
 
                 // retrieve name of image loaded
                 Account temp = new Account();
+                
                 string[] imageData = temp.getUploadData(int.Parse(Request.QueryString["editimage"]), int.Parse(Session["userID"].ToString()));
+
+                // if no image was found with that ID for that user, go back to dashboard
+                if(imageData.Length == 0)
+                {
+                    Response.Redirect("dashboard");
+                }
                 currentImage = imageData[2];
             }
             else
@@ -72,9 +79,16 @@ namespace Capstone_Project
             }
             if (!imageUpload.HasFile)
             {
-                status += "ERROR: no image uploaded";
+                status += "ERROR: no image uploaded <br>";
             }
-
+            if (imageUpload.FileBytes.Length >= 3145728)
+            {
+                status += "ERROR: image file too large; Please use file under 3MB <br>";
+            }
+            if (dtp_completionDate.Text == "")
+            {
+                status += "ERROR: no completion date selected <br>";
+            }
             Account uploader = new Account();
             string uploadPath = uploader.getUsernameByID(int.Parse(Session["userID"].ToString())) + "_" + imageUpload.FileName;
 
@@ -93,8 +107,6 @@ namespace Capstone_Project
                 imageUpload.SaveAs(Server.MapPath("Uploads/" + uploadPath));
 
                 uploader.uploadImageData(int.Parse(Session["userID"].ToString()), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
-
-                Response.Redirect("dashboard");
             }
         }
 
@@ -142,7 +154,15 @@ namespace Capstone_Project
             {
                 uploader.updateImageData(int.Parse(Request.QueryString["editimage"]), uploadPath, txt_Title.Text, txt_Medium.Text, DateTime.Parse(dtp_completionDate.Text), txt_Description.Text);
 
-                Response.Redirect("dashboard");
+                // redirect to adminGallery if admin
+                if (Request.QueryString["src"] == "admin")
+                {
+                    Response.Redirect("adminGallery");
+                }
+                else
+                {
+                    Response.Redirect("dashboard");
+                }
             }
         }
     }
